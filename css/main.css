@@ -1,0 +1,199 @@
+body
+{
+    max-width:800px;
+    margin:40px auto;
+    font-family: 'Open Sans', 'Arial', sans-serif;
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: justify;
+}
+aside
+{
+    float: right;
+    font-size: 14px;
+}
+.mfw
+{
+    color: rgb(22, 160, 133);
+}
+.mfwlink
+{
+    color:rgb(22, 160, 133);
+    text-decoration: underline;
+}
+ul li img
+{
+    height: 1em
+}
+.code
+{
+    font-family: monospace;
+    font-size: 0.95em
+}
+.block1
+{
+    font-weight: bold;
+    color: #444444
+}
+.block1::before
+{
+    content: "";
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-color: #444444
+}
+.block2
+{
+    font-weight: bold;
+    color: #454545;
+}
+.block2::before
+{
+    content: "";
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-color: #454545
+}
+.fauxparagraf
+{
+    display: block;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    overflow: auto
+}
+.chat
+{
+    width: 100%;
+    margin-right: 1em;
+}
+.photo
+{
+    float: left;
+    width: 40%;
+    margin-right: 1em;
+}
+.soustitre
+{
+    font-size: 0.75em;
+}
+blockquote
+{
+    font-size: 1.2em
+}
+blockquote::before
+{
+    content: open-quote;
+    font-size: 2em;
+    margin-right: 0.3em;
+    font-family: 'Times New Roman', Times, serif;
+}
+.sousblockquote
+{
+    font-size: 0.6em;
+    font-style: italic;
+    margin-left: 3em;
+    
+}
+.kopimi
+{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    height: 2em;
+}
+.cit
+{
+    font-size: 0.7em;
+    vertical-align: top;
+    margin-left: 0.2em;
+}
+#wrong
+{
+    color: maroon;
+    font-weight: bold;
+    text-decoration: underline;
+    
+}
+a:link
+{
+    color: #0077aa
+}
+a:visited 
+{
+    color:#941352
+}
+small
+{
+    font-size: 0.5em
+}
+
+
+
+
+
+
+
+
+
+
+
+/*Partie en dessous absolument recopié du site original*/
+
+/* cyrillic-ext */
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFWJ0bbck.woff2) format('woff2');
+    unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+  }
+  /* cyrillic */
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFUZ0bbck.woff2) format('woff2');
+    unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+  }
+  /* greek-ext */
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFWZ0bbck.woff2) format('woff2');
+    unicode-range: U+1F00-1FFF;
+  }
+  /* greek */
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVp0bbck.woff2) format('woff2');
+    unicode-range: U+0370-03FF;
+  }
+  /* vietnamese */
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFWp0bbck.woff2) format('woff2');
+    unicode-range: U+0102-0103, U+0110-0111, U+1EA0-1EF9, U+20AB;
+  }
+  /* latin-ext */
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFW50bbck.woff2) format('woff2');
+    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  }
+  /* latin */
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Open Sans Regular'), local('OpenSans-Regular'), url(https://fonts.gstatic.com/s/opensans/v15/mem8YaGs126MiZpBA-UFVZ0b.woff2) format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  }
