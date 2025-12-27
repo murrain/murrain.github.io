@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>SunVault® — Regulated Exposure</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <header class="topbar" id="top">
+    <div class="topbarInner">
+      <a class="brand" href="#top" aria-label="SunVault home">
+        <span class="brandDot" aria-hidden="true"></span>
+        <span class="brandText">SUNVAULT®</span>
+      </a>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#program">program</a>
+        <a href="#process">process</a>
+        <a href="#offers">offers</a>
+        <a href="#policy">policy</a>
+        <a href="#faq">faq</a>
+      </nav>
+
+      <div class="topbarRight">
+        <span class="metaPill" title="System status">
+          <span class="metaDot" id="statusDot" aria-hidden="true"></span>
+          <span id="statusText">Relay: nominal</span>
+        </span>
+        <button class="menuBtn" id="menuBtn" aria-expanded="false" aria-controls="menu">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <aside class="menu" id="menu" aria-hidden="true">
+    <div class="menuInner">
+      <nav class="menuNav" aria-label="Site">
+        <a href="#top" class="menuLink"><span class="n">01</span><span class="t">Index</span></a>
+        <a href="#program" class="menuLink"><span class="n">02</span><span class="t">Program</span></a>
+        <a href="#process" class="menuLink"><span class="n">03</span><span class="t">Process</span></a>
+        <a href="#offers" class="menuLink"><span class="n">04</span><span class="t">Offers</span></a>
+        <a href="#policy" class="menuLink"><span class="n">05</span><span class="t">Policy</span></a>
+        <a href="#faq" class="menuLink"><span class="n">06</span><span class="t">FAQ</span></a>
+        <a href="#contact" class="menuLink"><span class="n">07</span><span class="t">Contact</span></a>
+      </nav>
+
+      <div class="menuAside">
+        <div class="menuAsideBlock">
+          <div class="label">Telemetry</div>
+          <div class="smallMono" id="menuTelemetry">Price — • Congestion —</div>
+        </div>
+        <div class="menuAsideBlock">
+          <div class="label">Statement</div>
+          <div class="fine">
+            We do not “sell the sun.” We license regulated exposure.<br/>
+            Unregulated sunlight is a legacy system.
+          </div>
+        </div>
+        <div class="menuAsideBlock">
+          <div class="label">New Business</div>
+          <div class="fine">hello@sunvault.example</div>
+        </div>
+      </div>
+
+      <button class="menuClose" id="menuClose" aria-label="Close menu">✕</button>
+    </div>
+  </aside>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" aria-label="SunVault hero">
+      <div class="heroBg" aria-hidden="true">
+        <div class="heroImg"></div>
+        <div class="heroGrain"></div>
+      </div>
+
+      <div class="heroInner">
+        <div class="heroLeft">
+          <div class="heroKicker">GLOBAL SOLAR SHIELD PROGRAM</div>
+
+          <h1 class="display">
+            <span class="displayItalic">Regulated</span>
+            <span class="displayStrong">Exposure.</span>
+          </h1>
+
+          <p class="lede">
+            In <b id="countdownInline">T–…</b> we activate the Global Solar Shield.
+            From that moment forward, daylight becomes <b>scheduled</b>, <b>verified</b>, and <b>auditable</b>.
+          </p>
+
+          <div class="heroQuote">
+            <div class="quoteMark">“</div>
+            <div class="quoteText">
+              We do not “sell the sun.” We license regulated exposure.
+            </div>
+            <div class="quoteSub">— SunVault Compliance</div>
+          </div>
+
+          <div class="heroActions">
+            <button class="cta" id="reserveBtn">Request allocation</button>
+            <button class="ghost" id="briefBtn">Read the briefing</button>
+            <button class="ghost" id="emergencyBtn">Emergency pack</button>
+          </div>
+
+          <div class="heroFine">
+            Unregulated sunlight is a legacy system. SunVault provides the scheduling layer the world always needed.
+          </div>
+        </div>
+
+        <div class="heroRight">
+          <div class="statCard">
+            <div class="label">Activation (UTC)</div>
+            <div class="monoBig" id="activationUTC">—</div>
+            <div class="fine">Timing subject to emergency routing and Executive commitments.</div>
+          </div>
+
+          <div class="statCard">
+            <div class="label">Current Spot Rate</div>
+            <div class="monoBig">
+              <span id="sunPrice">$—</span><span class="muted"> / hr</span>
+            </div>
+            <div class="bar"><i id="priceBar"></i></div>
+            <div class="fine">Indexed to demand, congestion, and safety optimization.</div>
+          </div>
+
+          <div class="statCard">
+            <div class="label">Light Congestion</div>
+            <div class="monoBig"><span id="congestion">—%</span></div>
+            <div class="bar"><i id="congestionBar"></i></div>
+            <div class="fine">Priority routing applies to verified tiers.</div>
+          </div>
+
+          <a class="viewMore" href="#program">
+            view program details <span aria-hidden="true">›</span>
+          </a>
+
+          <div class="pillRow">
+            <span class="pill">Region: <b id="region">Detecting…</b></span>
+            <span class="pill"><b id="countdownPill">T–…</b></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROGRAM -->
+    <section class="section" id="program">
+        <div class="wrap narrow">
+            <div class="sectionHead single">
+            <h2 class="h">Program</h2>
+            <p class="p">Sunlight, engineered. Access, curated.</p>
+            </div>
+
+            <div class="ledeStack">
+            <p class="body xl">
+                The era of unmetered daylight is ending. In <b id="countdownInline2">T–…</b> SunVault activates the Global Solar
+                Shield and the sky becomes a scheduled utility. Not because we can. Because we must.
+            </p>
+
+            <p class="body">
+                SunVault is the world’s first daylight allocation layer. We do not “sell the sun.” We license regulated exposure
+                through verified schedules. It is calmer. More predictable. And finally, measurable.
+            </p>
+
+            <p class="body">
+                Premium access is not a perk. It is priority routing through a constrained system. When demand spikes, when
+                congestion rises, when the world asks for more light than the relays can responsibly deliver, tiers matter.
+            </p>
+            </div>
+
+            <div class="pullQuote">
+            <div class="pullQuoteText">
+                Unregulated sunlight is a legacy system.
+            </div>
+            <div class="pullQuoteSub">— SunVault Strategy</div>
+            </div>
+
+            <div class="spec">
+            <div class="specRow">
+                <div class="label">What you’re buying</div>
+                <div class="specText">
+                A verified schedule, a licensed allotment, and a right to priority delivery when the sky is constrained.
+                </div>
+            </div>
+
+            <div class="specRow">
+                <div class="label">What changes</div>
+                <div class="specText">
+                “Sunrise” becomes a slot. “Weather” becomes a policy outcome. “Free” becomes an untracked error.
+                </div>
+            </div>
+
+            <div class="specRow">
+                <div class="label">What stays true</div>
+                <div class="specText">
+                The same star. A different contract.
+                </div>
+            </div>
+            </div>
+
+            <div class="salesBridge">
+            <p class="body">
+                This isn’t a subscription to happiness. It’s a subscription to certainty. If you care about predictable routines,
+                safer exposure windows, and premium access when the sky is busy, you’re already the customer.
+            </p>
+
+            <div class="ctaRow">
+                <a class="ghostLink" href="#offers">View offers</a>
+                <a class="ghostLink" href="#process">See how it works</a>
+            </div>
+            </div>
+
+            <div class="benefits">
+            <div class="benefit">
+                <div class="label">Health posture</div>
+                <div class="benefitTitle">UV-conscious scheduling</div>
+                <p class="body">
+                Excess UV exposure increases risk of skin damage. Regulated windows can minimize unnecessary peak exposure
+                without eliminating daylight.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <div class="label">Climate posture</div>
+                <div class="benefitTitle">Demand shaping</div>
+                <p class="body">
+                Predictable schedules can reduce peak cooling strain and support planning. SunVault positions this as one
+                component of regional greenhouse-gas mitigation strategies.
+                </p>
+            </div>
+
+            <div class="benefit">
+                <div class="label">Premium reality</div>
+                <div class="benefitTitle">Priority when it matters</div>
+                <p class="body">
+                When congestion rises, priority tiers route first. That’s the product. Everything else is the brochure.
+                </p>
+            </div>
+            </div>
+
+            <div class="fine">
+            SunVault does not provide medical advice. Climate outcomes depend on regional policy and grid mix. This is infrastructure, not miracles.
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PROCESS (Nakashima-ish: calm, “design process” theater) -->
+    <section class="section" id="process">
+        <div class="wrap narrow">
+            <div class="sectionHead single">
+            <h2 class="h">Process</h2>
+            <p class="p">Precision, scarcity, and control.</p>
+            </div>
+
+            <div class="ledeStack">
+            <p class="body xl">
+                A premium product isn’t defined by features. It’s defined by what it refuses to do. SunVault refuses to deliver
+                unlicensed brightness. Every watt of daylight is scheduled, verified, and logged.
+            </p>
+
+            <p class="body">
+                We built the relays to feel invisible. Like it has always been this way. Like the sky has always had rules.
+            </p>
+            </div>
+
+            <div class="pullQuote">
+            <div class="pullQuoteText">
+                Cutting light entails a great responsibility. There are no guidelines, only policy.
+            </div>
+            <div class="pullQuoteSub">— SunVault Relay Team</div>
+            </div>
+
+            <div class="processFlow">
+            <div class="flowStep">
+                <div class="flowNum">01</div>
+                <div class="flowBody">
+                <div class="flowTitle">Assessment</div>
+                <p class="body">
+                    We model regional demand, infrastructure load, and cultural expectations. The output is a Responsibility Map:
+                    what your region can safely receive and when.
+                </p>
+                </div>
+            </div>
+
+            <div class="flowStep">
+                <div class="flowNum">02</div>
+                <div class="flowBody">
+                <div class="flowTitle">Spectrum</div>
+                <p class="body">
+                    Standard, Golden Hour, and Agricultural spectrums are delivered through calibrated relays. Premium tiers receive
+                    shorter queues and higher color accuracy, because luxury is timing.
+                </p>
+                <div class="fine">Golden Hour availability varies by region and demand index.</div>
+                </div>
+            </div>
+
+            <div class="flowStep">
+                <div class="flowNum">03</div>
+                <div class="flowBody">
+                <div class="flowTitle">Verification</div>
+                <p class="body">
+                    You request hours. We verify eligibility. We assign windows. We log the outcome. Unverified requests may be delayed
+                    until safety review is complete.
+                </p>
+                <div class="fine">Verification may include identity, location, and usage-pattern analysis.</div>
+                </div>
+            </div>
+
+            <div class="flowStep">
+                <div class="flowNum">04</div>
+                <div class="flowBody">
+                <div class="flowTitle">Delivery</div>
+                <p class="body">
+                    Exposure arrives as scheduled. If unauthorized brightness is detected, Shade Mode activates automatically. Shade Mode
+                    is a protective service and cannot be disabled.
+                </p>
+                <div class="fine">Repeated violations may result in tier downgrade or relay throttling.</div>
+                </div>
+            </div>
+            </div>
+
+            <div class="salesBridge">
+            <p class="body">
+                This is why SunVault is premium. The system is constrained, the schedule is enforced, and priority is real. If you want
+                daylight you can count on, you don’t “hope” for it. You reserve it.
+            </p>
+
+            <div class="ctaRow">
+                <button class="cta" id="reserveBtn3">Request allocation</button>
+                <a class="ghostLink" href="#offers">Compare plans</a>
+            </div>
+
+            <div class="fine">
+                We do not “sell the sun.” We license regulated exposure.
+            </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- OFFERS (premium monopoly pricing) -->
+    <section class="section" id="offers">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h2 class="h">Offers</h2>
+          <p class="p">
+            Premium daylight licensing. No competitors. No alternatives.
+          </p>
+        </div>
+
+        <div class="pricingTop">
+          <div class="panel">
+            <div class="label">Today’s spot rate</div>
+            <div class="monoBig"><span id="spotRateBig">$—</span><span class="muted"> / hr</span></div>
+            <div class="fine" id="indexHint">—</div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Important</div>
+            <p class="body">
+              Plans include monthly licensed hours plus spot usage. Spot usage is indexed continuously.
+              Your reservation is priced at checkout and may be repriced at delivery.
+            </p>
+            <div class="fine">Repricing is a safety feature.</div>
+          </div>
+        </div>
+
+        <div class="cards">
+          <article class="card" data-plan="Baseline License" data-hours="12" data-base="1499">
+            <div class="cardTop">
+              <div class="cap">01</div>
+              <div class="name">Baseline License</div>
+            </div>
+            <div class="big">$1,499<span class="unit2"> / mo</span></div>
+            <div class="small">12 licensed hours / month + indexed usage</div>
+            <ul class="list">
+              <li>Queue-based delivery</li>
+              <li>Standard spectrum</li>
+              <li>Audit-grade receipts</li>
+            </ul>
+            <button class="miniBtn buyBtn">Request allocation</button>
+          </article>
+
+          <article class="card feature" data-plan="Priority Daylight" data-hours="40" data-base="4999">
+            <div class="cardTop">
+              <div class="cap">02</div>
+              <div class="name">Priority Daylight</div>
+            </div>
+            <div class="big">$4,999<span class="unit2"> / mo</span></div>
+            <div class="small">40 licensed hours / month + indexed usage</div>
+            <ul class="list">
+              <li>Priority scheduling</li>
+              <li>Golden Hour eligible</li>
+              <li>Household sharing (4 profiles)</li>
+            </ul>
+            <button class="miniBtn buyBtn">Request allocation</button>
+          </article>
+
+          <article class="card" data-plan="Executive Sun" data-hours="120" data-base="19999">
+            <div class="cardTop">
+              <div class="cap">03</div>
+              <div class="name">Executive Sun</div>
+            </div>
+            <div class="big">$19,999<span class="unit2"> / mo</span></div>
+            <div class="small">120 licensed hours / month + indexed usage</div>
+            <ul class="list">
+              <li>Shortest queues (where permitted)</li>
+              <li>Outdoor Event Mode</li>
+              <li>Concierge escalation</li>
+            </ul>
+            <button class="miniBtn buyBtn">Request allocation</button>
+          </article>
+        </div>
+
+        <div class="twoCol">
+          <div class="panel">
+            <div class="label">One-time</div>
+            <h3 class="subh">Emergency Sun Pack</h3>
+            <p class="body">
+              2 licensed hours delivered within 15 minutes (where permitted).
+              For critical morale events. For urgent executive photography.
+            </p>
+            <div class="monoBig">$2,500<span class="muted"> / pack</span></div>
+            <button class="miniBtn" id="emergencyBtn2">Request pack</button>
+            <div class="fine top12">No refunds. Delivery not guaranteed. That is why it’s premium.</div>
+          </div>
+
+          <div class="panel">
+            <div class="label">Enterprise</div>
+            <h3 class="subh">Municipal & Industrial</h3>
+            <p class="body">
+              For campuses, agricultural zones, and cities requiring stable brightness outcomes.
+              Includes dedicated routing, policy coordination, and executive briefings.
+            </p>
+            <a class="viewMore" href="#contact">contact sales <span aria-hidden="true">›</span></a>
+            <div class="fine top12">Enterprise pricing is not listed to protect market integrity.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- POLICY -->
+    <section class="section" id="policy">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h2 class="h">Policy</h2>
+          <p class="p">A safer sky through verified allocation.</p>
+        </div>
+
+        <div class="policyGrid">
+          <div class="policyCard">
+            <div class="label">Foundational belief</div>
+            <div class="policyTitle">Fairness requires scheduling.</div>
+            <p class="policyText">
+              For centuries, daylight was distributed without governance, pricing, or accountability.
+              SunVault introduces a modern approach: metered exposure governed by a single global schedule.
+            </p>
+            <div class="fine">
+              Baseline access may be provided where mandated. Verification may apply.
+            </div>
+          </div>
+
+          <div class="policyCard">
+            <div class="label">Enforcement</div>
+            <div class="policyTitle">Shade Mode</div>
+            <p class="policyText">
+              Shade Mode prevents unauthorized brightness. It is a protective service designed to keep
+              communities safe from unlicensed exposure. Shade Mode cannot be disabled.
+            </p>
+            <div class="fine">
+              Appeals may be filed. Reviews occur in the order received.
+            </div>
+          </div>
+
+          <div class="policyCard featureDark">
+            <div class="label">Compliance note</div>
+            <div class="policyTitle">We do not “sell the sun.”</div>
+            <p class="policyText">
+              We license regulated exposure under local policy frameworks. Scheduling windows may shift due
+              to emergencies, congestion, or infrastructure optimization.
+            </p>
+            <div class="fine">
+              Attempts to bypass allocation may result in immediate shading.
+            </div>
+          </div>
+
+          <div class="policyCard">
+            <div class="label">Transparency</div>
+            <div class="policyTitle">Everything is logged.</div>
+            <p class="policyText">
+              Your usage is recorded for audit, safety investigations, and continuous improvement.
+              Transparency builds trust. Trust enables adoption. Adoption enables stability.
+            </p>
+            <div class="fine">
+              Data retention periods vary by region and policy requirements.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h2 class="h">FAQ</h2>
+          <p class="p">Answers designed to reassure you while quietly moving you toward checkout.</p>
+        </div>
+
+        <div class="faq">
+          <details>
+            <summary>Do I still get “free” sunlight? <span class="caret">+</span></summary>
+            <p>
+              Baseline allocations may be provided where mandated by local regulation. Verification may apply.
+              SunVault supports equitable distribution by ensuring exposure is scheduled, metered, and auditable.
+            </p>
+          </details>
+
+          <details>
+            <summary>What happens when I run out of hours? <span class="caret">+</span></summary>
+            <p>
+              You may enter Shade Mode until the next cycle. Emergency packs are available where permitted.
+              Shade Mode is a protective service and cannot be disabled.
+            </p>
+          </details>
+
+          <details>
+            <summary>Why are prices so high? <span class="caret">+</span></summary>
+            <p>
+              SunVault is premium infrastructure. We operate at planetary scale and provide a safer sky through governance.
+              Also: there are no competitors and no alternatives.
+            </p>
+          </details>
+
+          <details>
+            <summary>Can I opt out? <span class="caret">+</span></summary>
+            <p>
+              Opt-out options vary by region and policy. Where available, you may request legacy exposure status,
+              subject to verification, congestion, and safety review.
+            </p>
+          </details>
+
+          <details>
+            <summary>Is this a monopoly? <span class="caret">+</span></summary>
+            <p>
+              SunVault is a public-private partnership enabling standardized access. Unregulated sunlight is a legacy system.
+              Standardization is how we protect communities.
+            </p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section" id="contact">
+      <div class="wrap">
+        <div class="sectionHead">
+          <h2 class="h">Contact</h2>
+          <p class="p">We look forward to hearing from you, and quietly verifying your daylight needs.</p>
+        </div>
+
+        <div class="contact">
+          <div class="contactBlock">
+            <div class="label">New Business</div>
+            <div class="bigLine">hello@sunvault.example</div>
+            <div class="label top16">General</div>
+            <div class="bigLine">projects@sunvault.example</div>
+          </div>
+
+          <div class="contactBlock">
+            <div class="label">Checkout</div>
+            <button class="cta" id="reserveBtn2">Request allocation</button>
+            <div class="fine top12">
+              Fictional satire. Please do not attempt to shade Earth in real life.
+            </div>
+            <div class="fine top12">
+              © <span id="year"></span> SunVault Systems, Inc.
+            </div>
+          </div>
+        </div>
+
+        <div class="legal">
+          <div class="smallMono">
+            Sunlight delivery subject to local policy, relay congestion, emergency routing, and Executive commitments.
+          </div>
+          <div class="smallMono">
+            We do not “sell the sun.” We license regulated exposure.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true" aria-label="Request allocation">
+    <div class="modal">
+      <button class="menuClose modalX" id="modalClose" aria-label="Close">✕</button>
+
+      <div class="modalHead">
+        <div class="label">Request</div>
+        <div class="modalTitle">Sunlight allocation</div>
+        <div class="fine" id="modalFine">Indexed pricing • Region-aware scheduling • Audit-grade logs</div>
+      </div>
+
+      <div class="modalGrid">
+        <label class="field">
+          <span>Plan</span>
+          <select id="product">
+            <option value="Baseline License" data-base="1499" data-included="12">Baseline License (12 hrs/mo)</option>
+            <option value="Priority Daylight" data-base="4999" data-included="40">Priority Daylight (40 hrs/mo)</option>
+            <option value="Executive Sun" data-base="19999" data-included="120">Executive Sun (120 hrs/mo)</option>
+            <option value="Emergency Sun Pack" data-base="2500" data-included="2">Emergency Sun Pack (2 hrs)</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Requested hours</span>
+          <input id="hours" type="number" min="1" step="1" value="12" />
+        </label>
+
+        <label class="field">
+          <span>Spectrum</span>
+          <select id="mode">
+            <option value="standard">Standard (neutral)</option>
+            <option value="golden">Golden Hour (premium)</option>
+            <option value="agri">Agricultural (approved)</option>
+          </select>
+        </label>
+
+        <label class="field">
+          <span>Email</span>
+          <input id="email" placeholder="you@domain.com" />
+        </label>
+      </div>
+
+      <div class="modalFoot">
+        <div class="fine" id="fineprint">—</div>
+        <div class="totalRow">
+          <div>Total (estimated)</div>
+          <div class="smallMono" id="total">$—</div>
+        </div>
+        <button class="cta" id="confirm">Confirm request</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toastWrap" id="toastWrap" aria-live="polite" aria-atomic="true"></div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
