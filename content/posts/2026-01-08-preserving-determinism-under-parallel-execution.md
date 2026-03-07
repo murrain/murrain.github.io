@@ -11,7 +11,7 @@ ogTitle = "Same Seed, Different Output: Fixing RNG Under Parallelism"
 description = "Thread-keyed RNG seeds look safe but produce different results every run. Switching to item-keyed seeds with SplitMix64 made the simulation deterministic again."
 +++
 
-After parallelizing Gridiron Dynasty's season simulation, I started getting different results on different runs. Same seed, same config, same code -- different draft classes, different player ratings, different outcomes. The kind of bug that makes you question everything you've done for the last two weeks.
+After parallelizing Gridiron Dynasty's season simulation, I started getting different results on different runs. Same seed, same config, same code: different draft classes, different player ratings, different outcomes. The kind of bug that makes you question everything you've done for the last two weeks.
 
 The culprit was `RngBox.gd`, the autoload that handed out RNG instances to whatever code needed one:
 
@@ -45,8 +45,8 @@ func rng_for_index(i: int, base_override: int = -1) -> RandomNumberGenerator:
     return rng_for_seed(splitmix64(base + i))
 ```
 
-`rng_for_index(i)` returns a deterministic RNG seeded by `SplitMix64(base + i)` -- a pure function of item position. Thread 2 processing item 7 gets the exact same RNG as thread 5 processing item 7, because the seed doesn't involve the thread at all. SplitMix64 is a 64-bit bijective mixer: fast, well-distributed, no shared state. The right tool here because it's pure arithmetic and needs no coordination between callers.
+`rng_for_index(i)` returns a deterministic RNG seeded by `SplitMix64(base + i)`, a pure function of item position. Thread 2 processing item 7 gets the exact same RNG as thread 5 processing item 7, because the seed doesn't involve the thread at all. SplitMix64 is a 64-bit bijective mixer: fast, well-distributed, no shared state. The right tool here because it's pure arithmetic and needs no coordination between callers.
 
-With `RngBox` the question was: "which thread am I?" With `Rand` the question is: "which item am I?" Thread identity is an execution property -- it tells you something about the runtime, not the data. Item index is a data property: stable, predictable, independent of how many cores you have.
+With `RngBox` the question was: "which thread am I?" With `Rand` the question is: "which item am I?" Thread identity is an execution property: it tells you something about the runtime, not the data. Item index is a data property: stable, predictable, independent of how many cores you have.
 
-The change also made regression testing actually work. Before, "run the simulation twice and compare" was meaningless -- the outputs were legitimately different every time. Now, identical inputs produce identical outputs regardless of thread count or scheduling order. Fix a bug in draft logic, re-run with the same seed, and any differences in the output are caused by your change -- not by the OS deciding to give thread 3 a bigger time slice this Tuesday.
+The change also made regression testing actually work. Before, "run the simulation twice and compare" was meaningless. The outputs were legitimately different every time. Now, identical inputs produce identical outputs regardless of thread count or scheduling order. Fix a bug in draft logic, re-run with the same seed, and any differences in the output are caused by your change, not by the OS deciding to give thread 3 a bigger time slice this Tuesday.

@@ -11,13 +11,13 @@ ogTitle = "How Quantile Tiering Fixed Unstable Star Ratings in My Football Sim"
 description = "Separating composite scoring from star assignment so tuning position weights doesn't blow up the entire tier distribution. With GDScript examples."
 +++
 
-Early in Gridiron Dynasty's recruiting system, a quarterback with elite arm talent and mediocre athleticism and a running back with elite athleticism and mediocre hands were coming out with the same composite score. Adjusting any single weight to fix one case broke several others. The star ratings -- the number the player actually sees -- were swinging wildly across minor tuning passes. The model wasn't wrong, but the output was chaotic in a way that made it hard to trust.
+Early in Gridiron Dynasty's recruiting system, a quarterback with elite arm talent and mediocre athleticism and a running back with elite athleticism and mediocre hands were coming out with the same composite score. Adjusting any single weight to fix one case broke several others. The star ratings, the number the player actually sees, were swinging wildly across minor tuning passes. The model wasn't wrong, but the output was chaotic in a way that made it hard to trust.
 
 The problem was that I'd mixed two things together: how to compute a score, and how to assign a tier from that score. Both lived in the same function, and both were sensitive to the same weights. Change the athletic multiplier for quarterbacks and you'd shift the score curve, which would shift who crossed the fixed star boundaries, which would produce a completely different tier distribution even if the relative rankings hadn't meaningfully changed.
 
 The fix was to separate these into two independent passes.
 
-**Pass 1: composite score.** `RecruitRater` computes a weighted aggregate of position-specific core stats, secondary stats, athleticism, and mentals -- with diminishing returns via power functions so that a player who's elite in one dimension doesn't completely dominate a player who's good across all of them:
+**Pass 1: composite score.** `RecruitRater` computes a weighted aggregate of position-specific core stats, secondary stats, athleticism, and mentals, with diminishing returns via power functions so that a player who's elite in one dimension doesn't completely dominate a player who's good across all of them:
 
 ```gdscript
 var ath_eff: float = pow(ath_pct, 0.90)
@@ -30,9 +30,9 @@ var comp_pct: float = (w_ath*ath_eff + w_cor*core_eff + w_sec*sec_eff + w_men*me
 comp_pct = comp_pct * (1.0 + synergy_gain * (synergy - 0.5))
 ```
 
-This produces a value per player that reflects their actual quality within their position. The `synergy` term rewards players who are both athletic and technically skilled -- that combination is more than additive in football and the model should reflect it.
+This produces a value per player that reflects their actual quality within their position. The `synergy` term rewards players who are both athletic and technically skilled. That combination is more than additive in football and the model should reflect it.
 
-**Pass 2: star rating.** Once composite scores exist for the whole class, each position group gets sorted and star ratings are assigned by percentile -- not by fixed cutoffs:
+**Pass 2: star rating.** Once composite scores exist for the whole class, each position group gets sorted and star ratings are assigned by percentile, not by fixed cutoffs:
 
 ```gdscript
 static func _stars_from_percentile(pct: float, thresholds: Dictionary, pos: String, ...) -> int:
@@ -44,7 +44,7 @@ static func _stars_from_percentile(pct: float, thresholds: Dictionary, pos: Stri
     return 0
 ```
 
-A 5-star quarterback is in the top 2% of quarterbacks in his class. A 5-star kicker is in the top 2% of kickers. The absolute composite scores differ -- kickers have lower athletic ceilings and narrower stat distributions -- but the star distribution within each position stays stable regardless of how those distributions shift when you tune the weights.
+A 5-star quarterback is in the top 2% of quarterbacks in his class. A 5-star kicker is in the top 2% of kickers. The absolute composite scores differ: kickers have lower athletic ceilings and narrower stat distributions, but the star distribution within each position stays stable regardless of how those distributions shift when you tune the weights.
 
 Change the athletic weight for wide receivers and the composite scores shift. The ranking order might change. But the top 2% are still 5-star and the top 30% are still 3-star-or-better. The tier structure doesn't destabilize just because the underlying scores moved.
 

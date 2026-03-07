@@ -7,12 +7,12 @@ author = "Patrick Smith"
 original_date = "2026-02-28"
 source_repo = "kde-weather-widget"
 ogTitle = "A KDE Weather Widget With Four Fallback Sources"
-description = "Four weather providers behind one interface. The local USB sensor is just another source -- if it dies, the widget switches instead of going blank."
+description = "Four weather providers behind one interface. The local USB sensor is just another source; if it dies, the widget switches instead of going blank."
 +++
 
 ![KDE weather widget showing current conditions and 7-day forecast](/img/kde-weather-widget.jpg)
 
-The obvious version of this widget talks directly to the local sensor API: one source, one URL, done. The problem is that it becomes useless the moment the sensor container goes down, which happens after reboots, during debugging, and on any machine that doesn't have the weather station running. A widget that requires you to mentally verify the backend before trusting the reading isn't a widget -- it's a reminder that something might be broken.
+The obvious version of this widget talks directly to the local sensor API: one source, one URL, done. The problem is that it becomes useless the moment the sensor container goes down, which happens after reboots, during debugging, and on any machine that doesn't have the weather station running. A widget that requires you to mentally verify the backend before trusting the reading isn't a widget. It's a reminder that something might be broken.
 
 I built the provider abstraction before building anything else. Four sources, four parsers, one normalized output shape:
 
@@ -48,7 +48,7 @@ function list() {
 }
 ```
 
-The local sensor connects via the `custom` provider. Its API endpoint returns OWM-compatible JSON, which `owm_compatible` parses. The widget has no idea it's talking to a USB dongle three feet away -- it just sees a provider with an endpoint URL and a parser. Switching from local sensor to Open-Meteo is one config change.
+The local sensor connects via the `custom` provider. Its API endpoint returns OWM-compatible JSON, which `owm_compatible` parses. The widget has no idea it's talking to a USB dongle three feet away. It just sees a provider with an endpoint URL and a parser. Switching from local sensor to Open-Meteo is one config change.
 
 Every parser normalizes to the same internal shape before the rendering layer sees anything: `current` with temperature, humidity, and a WMO weather code; `daily` with high/low and precipitation probability for seven days. The rendering code calls into this shape and only this shape.
 
@@ -62,6 +62,6 @@ GET {forecast URL}
 → actual forecast data
 ```
 
-This doesn't fit a generic single-fetch provider model. As a parser-specific implementation behind the same interface, it's fine -- the `weathergov` parser does the two-hop and caches the resolved forecast URLs so subsequent fetches are single requests. The widget doesn't know or care.
+This doesn't fit a generic single-fetch provider model. As a parser-specific implementation behind the same interface, it's fine. The `weathergov` parser does the two-hop and caches the resolved forecast URLs so subsequent fetches are single requests. The widget doesn't know or care.
 
 The taskbar temperature I wanted in the first place was about fifteen minutes of QML after the provider abstraction was working.

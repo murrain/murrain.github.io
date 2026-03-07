@@ -13,7 +13,7 @@ description = "Build and save Docker images at home, load from a local tar at th
 
 The original deployment for Silent Disco was standard Docker Compose: `docker compose up`, images pull from the registry if they're not cached, containers start. Reasonable when you have a reliable internet connection and time to troubleshoot. At a headphone event in a venue with spotty WiFi and a hard start time, a failed image pull means no audio and no useful error message anyone can act on.
 
-The failure mode was specific: arrive at the venue, plug in the laptop, run `make up`, and Docker starts pulling from Docker Hub. If the venue WiFi was bad -- and it often was, because consumer-grade event WiFi at capacity is not where you want to be depending on a registry pull -- the pull would stall or fail. No good recovery path. You could wait for a pull that might not complete, or you could explain to the room why the music hadn't started. Neither got easier with experience.
+The failure mode was specific: arrive at the venue, plug in the laptop, run `make up`, and Docker starts pulling from Docker Hub. If the venue WiFi was bad, and it often was, because consumer-grade event WiFi at capacity is not where you want to be depending on a registry pull, the pull would stall or fail. No good recovery path. You could wait for a pull that might not complete, or you could explain to the room why the music hadn't started. Neither got easier with experience.
 
 The fix splits the workflow into two phases at two locations.
 
@@ -57,8 +57,8 @@ fi
 exec docker compose up -d --no-build
 ```
 
-The script checks whether the images are already loaded. If so, it goes straight to starting containers -- re-running `make up-offline` at an event where you already ran it costs nothing. If not, it loads from the local archive. `--no-build` tells Docker Compose not to try building anything. The network state at the venue is irrelevant to whether the system starts.
+The script checks whether the images are already loaded. If so, it goes straight to starting containers. Re-running `make up-offline` at an event where you already ran it costs nothing. If not, it loads from the local archive. `--no-build` tells Docker Compose not to try building anything. The network state at the venue is irrelevant to whether the system starts.
 
 The `:offline` tag is intentional. It keeps the offline workflow visually distinct from the standard one and prevents a casual `docker compose up` from accidentally starting the wrong images. The explicit naming makes it harder to end up not knowing which version is running.
 
-The extra step at home -- build, save, transfer -- is the entire cost. A few minutes once, in an environment where you have time and a good connection. What it removes is a failure mode that can't be debugged in thirty seconds with a crowd waiting. Complexity that can live at home shouldn't travel to the venue.
+The extra step at home, build, save, transfer, is the entire cost. A few minutes once, in an environment where you have time and a good connection. What it removes is a failure mode that can't be debugged in thirty seconds with a crowd waiting. Complexity that can live at home shouldn't travel to the venue.

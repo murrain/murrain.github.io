@@ -15,7 +15,7 @@ The goal here, stated plainly, is to have the actual weather outside my house di
 
 The weather station runs in Docker on a home server. After a host reboot, the container would sometimes start before the USB RTL-SDR sensor was ready. The process showed healthy. No data came in. No error. `docker ps` said running. The sensor just wasn't there yet, and the entrypoint had assumed it would be.
 
-The original `startup.sh` was optimistic -- install packages, configure the environment, start the process:
+The original `startup.sh` was optimistic: install packages, configure the environment, start the process:
 
 ```sh
 #!/bin/sh
@@ -30,7 +30,7 @@ chmod +x /weather-station/entrypoint.sh /weather-station/tail_csv.sh
 exec /weather-station/entrypoint.sh
 ```
 
-Nothing in there asks whether the hardware exists. It installs, configures, and launches. If the USB device isn't enumerated yet -- which happens reliably after a cold boot -- the process starts anyway, finds nothing, and sits there producing nothing. Green status. Zero data.
+Nothing in there asks whether the hardware exists. It installs, configures, and launches. If the USB device isn't enumerated yet, which happens reliably after a cold boot, the process starts anyway, finds nothing, and sits there producing nothing. Green status. Zero data.
 
 The fix was a polling loop before launch:
 
@@ -53,6 +53,6 @@ chmod +x /weather-station/entrypoint.sh /weather-station/tail_csv.sh
 exec /weather-station/entrypoint.sh
 ```
 
-`lsusb | grep -q "0bda:2838"` checks for the specific USB vendor/product ID of the RTL2838 dongle. The loop runs every two seconds until it finds it, then hands off to the actual entrypoint. `usbutils` gets added to the install step because `lsusb` lives there. `set -eu` at the top means any failure in the startup sequence stops the script rather than silently continuing -- the other half of "optimistic startup" worth fixing at the same time.
+`lsusb | grep -q "0bda:2838"` checks for the specific USB vendor/product ID of the RTL2838 dongle. The loop runs every two seconds until it finds it, then hands off to the actual entrypoint. `usbutils` gets added to the install step because `lsusb` lives there. `set -eu` at the top means any failure in the startup sequence stops the script rather than silently continuing. The other half of "optimistic startup" worth fixing at the same time.
 
 The loop adds a few seconds of startup time after a reboot. That's the entire cost. What it removes is a recurring failure mode where the container appeared healthy while the thing it existed to do wasn't happening. Debugging that by looking at `docker ps` got you nowhere. You had to know to look at the ingest logs, know that silence wasn't normal, and connect that to boot ordering. A while loop and a grep replace all of that knowledge.
