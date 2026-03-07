@@ -6,6 +6,8 @@ tags = ["kde", "qml", "ux"]
 author = "Patrick Smith"
 original_date = "2026-02-28"
 source_repo = "kde-weather-widget"
+ogTitle = "A KDE Weather Widget With Four Fallback Sources"
+description = "Four weather providers behind one interface. The local USB sensor is just another source -- if it dies, the widget switches instead of going blank."
 +++
 
 ![KDE weather widget showing current conditions and 7-day forecast](/img/kde-weather-widget.jpg)

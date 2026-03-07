@@ -7,6 +7,8 @@ author = "Patrick Smith"
 original_date = "2026-02-27"
 source_repo = "weather-station"
 source_commit = "7916802"
+ogTitle = "A Docker Container That Looked Healthy While Doing Nothing"
+description = "The weather station container started before the USB sensor was ready. Green status, zero data. A while loop and a grep fixed it."
 +++
 
 The goal here, stated plainly, is to have the actual weather outside my house displayed in my taskbar rather than the reading from an airport five miles away. The engineering surface required to achieve this has, at no point, caused me to reconsider the goal.

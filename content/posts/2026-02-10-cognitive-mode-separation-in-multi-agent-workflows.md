@@ -5,6 +5,8 @@ draft = false
 tags = ["ai", "architecture", "agents"]
 author = "Patrick Smith"
 original_date = "2026-02-10"
+ogTitle = "Define What Each Agent Must Not Think"
+description = "Splitting AI agents by cognitive mode -- fidelity, voice, compression, skepticism -- instead of by task. Why shared context kills verification."
 +++
 
 The first version of my document assembly pipeline used a single agent to select bullets, write the profile, draft the cover letter, and check everything for accuracy. The output was technically complete and thoroughly mediocre. The bullet selector would occasionally improve phrasing where it should have been picking verbatim. The writer would cite metrics where it should have been finding a voice. The verifier, running in the same context that produced the content, would nod along at things it should have caught. None of them was bad at its job. They just kept doing each other's.

@@ -7,6 +7,8 @@ author = "Patrick Smith"
 original_date = "2025-08-21"
 source_repo = "silentdisco"
 source_commit = "3107fa2"
+ogTitle = "Pre-Packing Docker Images So Venue WiFi Can't Kill the Event"
+description = "Build and save Docker images at home, load from a local tar at the venue. Zero network dependency at showtime. A two-phase Makefile workflow."
 +++
 
 The original deployment for Silent Disco was standard Docker Compose: `docker compose up`, images pull from the registry if they're not cached, containers start. Reasonable when you have a reliable internet connection and time to troubleshoot. At a headphone event in a venue with spotty WiFi and a hard start time, a failed image pull means no audio and no useful error message anyone can act on.

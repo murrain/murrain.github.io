@@ -5,6 +5,8 @@ draft = false
 tags = ["ai", "architecture", "agents"]
 author = "Patrick Smith"
 original_date = "2026-02-17"
+ogTitle = "How the Resume Pipeline Went From One Agent to Five"
+description = "A single-agent resume builder looked complete until real job applications broke it. Three specific failures dictated the three architectural splits."
 +++
 
 The resume-builder started as a single AGENTS.md. One agent did everything: interview the candidate, select bullets, write the profile, write the cover letter, verify accuracy. The initial commit had comprehensive documentation — invariants, output formats, examples, edge cases. It looked like a complete system.

@@ -7,6 +7,8 @@ author = "Patrick Smith"
 original_date = "2026-01-08"
 source_repo = "gridiron-dynasty"
 source_commit = "9279646b68"
+ogTitle = "Same Seed, Different Output: Fixing RNG Under Parallelism"
+description = "Thread-keyed RNG seeds look safe but produce different results every run. Switching to item-keyed seeds with SplitMix64 made the simulation deterministic again."
 +++
 
 After parallelizing Gridiron Dynasty's season simulation, I started getting different results on different runs. Same seed, same config, same code -- different draft classes, different player ratings, different outcomes. The kind of bug that makes you question everything you've done for the last two weeks.

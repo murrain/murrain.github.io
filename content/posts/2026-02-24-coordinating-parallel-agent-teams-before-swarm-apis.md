@@ -5,6 +5,8 @@ draft = false
 tags = ["ai", "architecture", "agents"]
 author = "Patrick Smith"
 original_date = "2026-02-24"
+ogTitle = "Coordinating Parallel Agent Teams With Git and Prose Protocols"
+description = "Before swarm APIs existed, we ran parallel agent teams using git workspaces and a Director defined in markdown. Here's what broke and what fixed it."
 +++
 
 January 2026. Gridiron Dynasty needed parallel development across several feature areas simultaneously. The native tooling for agent swarm coordination — Claude's sub-agent spawning, proper worktree isolation, lifecycle management — either didn't exist yet or wasn't available. So the coordination layer got built from scratch: AGENTS.md files, git, and a Director role defined entirely in prose.

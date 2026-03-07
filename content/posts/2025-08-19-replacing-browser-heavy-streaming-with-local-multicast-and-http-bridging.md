@@ -7,6 +7,8 @@ author = "Patrick Smith"
 original_date = "2025-08-19"
 source_repo = "silentdisco"
 source_commit = "4ce1e56"
+ogTitle = "Why iOS Killed My LAN Multicast Stream (and the One-Proxy Fix)"
+description = "UDP multicast gets 50ms latency for LAN audio events -- until iOS and consumer WiFi silently drop it. A udpxy proxy on the router bridges the gap."
 +++
 
 Silent Disco is a LAN audio streaming system for headphone events: one DJ, one network, fifty phones with headphones. The early version streamed through the browser using HLS. HLS works fine for internet video. For a local event with a DJ in the same room, it brought a lot of protocol surface that wasn't serving the problem -- buffering tuned for variable internet links, latency measured in seconds, infrastructure assumptions that didn't apply when everything was within ten meters.

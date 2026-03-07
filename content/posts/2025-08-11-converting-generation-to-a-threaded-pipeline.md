@@ -7,6 +7,8 @@ author = "Patrick Smith"
 original_date = "2025-08-11"
 source_repo = "gridiron-dynasty"
 source_commit = "505bbddfb0"
+ogTitle = "Parallelizing a 20-Year World Bootstrap in Godot with a Thread Pool"
+description = "A fan-out/fan-in thread pool for Godot that cut world generation time -- but the real win was the purity audit it forced on every mutation path."
 +++
 
 Gridiron Dynasty's world bootstrap simulates 20 years of player history before a user ever sees a game. High school classes, college recruiting, draft classes, NFL seasons, free agency, player lifecycle progression -- all of it runs serially, year by year, phase by phase, player by player. On a 2025 machine, generating a full world was taking long enough that I'd started avoiding it during development. That's the sign that performance has crossed from "not ideal" to "actually in the way."

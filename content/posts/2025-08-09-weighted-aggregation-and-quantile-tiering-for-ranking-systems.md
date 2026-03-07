@@ -7,6 +7,8 @@ author = "Patrick Smith"
 original_date = "2025-08-09"
 source_repo = "gridiron-dynasty"
 source_commit = "cbc5eb4"
+ogTitle = "How Quantile Tiering Fixed Unstable Star Ratings in My Football Sim"
+description = "Separating composite scoring from star assignment so tuning position weights doesn't blow up the entire tier distribution. With GDScript examples."
 +++
 
 Early in Gridiron Dynasty's recruiting system, a quarterback with elite arm talent and mediocre athleticism and a running back with elite athleticism and mediocre hands were coming out with the same composite score. Adjusting any single weight to fix one case broke several others. The star ratings -- the number the player actually sees -- were swinging wildly across minor tuning passes. The model wasn't wrong, but the output was chaotic in a way that made it hard to trust.

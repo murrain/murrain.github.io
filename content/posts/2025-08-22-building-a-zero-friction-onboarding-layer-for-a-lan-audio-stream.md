@@ -6,6 +6,8 @@ tags = ["networking", "audio", "ux"]
 author = "Patrick Smith"
 original_date = "2025-08-22"
 source_repo = "silentdisco"
+ogTitle = "Getting 50 Phones on a LAN Audio Stream Without Tech Support"
+description = "A DNS trick, a QR code, and a user-agent redirect that routes media players to the stream and browsers to the instructions page. Same URL, both paths."
 +++
 
 Getting the stream working was step one. Getting fifty non-technical people onto it -- at an event, on their own phones, with no one standing there to help -- was a different problem.

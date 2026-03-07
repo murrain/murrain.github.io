@@ -6,6 +6,8 @@ tags = ["game-design", "concurrency", "correctness"]
 author = "Patrick Smith"
 original_date = "2026-01-15"
 source_repo = "gridiron-dynasty"
+ogTitle = "A Four-Level Seed Hierarchy for Deterministic Game Simulation"
+description = "Organizing RNG seeds across 20 simulated years, 12 phases, and parallel threads so every run produces identical output. Session to year to phase to step."
 +++
 
 Gridiron Dynasty's world bootstrap simulates 20 years of player history -- high school generation, college recruiting, draft classes, NFL seasons, free agency, player aging and retirement. After fixing the per-item RNG seeding, the next problem was structural: how to organize seeds across a simulation with dozens of phases, each containing multiple steps, running in parallel across 20 simulated years.
