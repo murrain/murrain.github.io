@@ -7,8 +7,8 @@
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
 
   {{/* Open Graph */}}
-  {{- $title := cond .IsHome .Site.Title .Title }}
-  {{- $desc := or .Description .Site.Params.description }}
+  {{- $title := cond .IsHome .Site.Title (printf "%s · %s" .Title .Site.Title) }}
+  {{- $desc := or .Description .Site.Params.ogDescription .Site.Params.description }}
   {{- $url := .Permalink }}
   {{- $image := "" }}
   {{- with .Params.image }}{{ $image = absURL . }}{{ else }}{{ $image = absURL "img/og.jpg" }}{{ end }}
