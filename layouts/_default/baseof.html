@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} · {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Tinos:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/syntax.css">
+  <link rel="stylesheet" href="/css/site.css">
+  <script>(function(){var t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t)}else if(window.matchMedia('(prefers-color-scheme: dark)').matches){document.documentElement.setAttribute('data-theme','dark')}})();</script>
+</head>
+<body>
+  <div class="wrap">
+    <header class="site-header">
+      <div>
+        <a class="site-title" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+        <p class="site-subtitle">{{ .Site.Params.description }}</p>
+      </div>
+      <button id="theme-toggle" aria-label="Toggle color scheme"></button>
+    </header>
+
+    <main>
+      {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <a href="https://github.com/murrain">github</a>
+        <a href="https://www.linkedin.com/in/patrick-smith-1963608/">linkedin</a>
+        <a href="{{ "/resume.pdf" | relURL }}">resume</a>
+      </p>
+    </footer>
+  </div>
+  <script>
+    (function(){
+      var btn = document.getElementById('theme-toggle');
+      function update(){
+        btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      }
+      update();
+      btn.addEventListener('click', function(){
+        var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        update();
+      });
+    })();
+  </script>
+</body>
+</html>

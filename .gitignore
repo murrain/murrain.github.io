@@ -1,0 +1,16 @@
+# Hugo build output (generated, not source)
+public/
+.hugo_build.lock
+
+# Large local-only directories
+chatgpt_export/
+incoming/
+memory/
+docs/
+sunshield/
+
+# Misc
+*.7z
+*.pdf
+AGENTS.md
+README_BLOG.md

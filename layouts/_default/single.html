@@ -1,0 +1,17 @@
+{{ define "main" }}
+<nav class="crumbs">
+  <a href="{{ "/" | relURL }}">Home</a>
+  <span>/</span>
+  <a href="{{ "/posts/" | relURL }}">Posts</a>
+  <span>/</span>
+  <span>{{ .Title }}</span>
+</nav>
+
+<article>
+  <h1>{{ .Title }}</h1>
+  <p class="meta">{{ .Date.Format "January 2, 2006" }}</p>
+  <div class="content">
+    {{ .Content }}
+  </div>
+</article>
+{{ end }}

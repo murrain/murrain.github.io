@@ -1,0 +1,21 @@
+baseURL = "https://murrain.github.io/"
+languageCode = "en-us"
+title = "Patrick Smith"
+
+[pagination]
+  pagerSize = 50
+
+[params]
+  author = "Patrick Smith"
+  description = "Engineering notes. Mostly things that didn't work the first time."
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = false
+  [markup.highlight]
+    style = "github"
+    noClasses = false
+    codeFences = true
+    lineNos = true
+    lineNumbersInTable = true
