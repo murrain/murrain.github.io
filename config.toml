@@ -7,7 +7,7 @@ title = "Patrick Smith"
 
 [params]
   author = "Patrick Smith"
-  description = "Engineering notes. Mostly things that didn't work the first time."
+  description = "Engineering notes by Patrick Smith. Systems, tools, and the decisions behind them. Mostly things that didn't work the first time."
 
 [markup]
   [markup.goldmark]
