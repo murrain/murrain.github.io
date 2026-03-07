@@ -11,7 +11,7 @@
   {{- $desc := or .Description .Site.Params.description }}
   {{- $url := .Permalink }}
   {{- $image := "" }}
-  {{- with .Params.image }}{{ $image = absURL . }}{{ else }}{{ $image = absURL "img/og.png" }}{{ end }}
+  {{- with .Params.image }}{{ $image = absURL . }}{{ else }}{{ $image = absURL "img/og.jpg" }}{{ end }}
   <meta property="og:type"        content="{{ if .IsPage }}article{{ else }}website{{ end }}">
   <meta property="og:site_name"   content="{{ .Site.Title }}">
   <meta property="og:title"       content="{{ $title }}">
