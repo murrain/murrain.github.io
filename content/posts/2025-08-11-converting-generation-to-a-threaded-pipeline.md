@@ -11,40 +11,66 @@ ogTitle = "Parallelizing a 20-Year World Bootstrap in Godot with a Thread Pool"
 description = "A fan-out/fan-in thread pool for Godot that cut world generation time, but the real win was the purity audit it forced on every mutation path."
 +++
 
-Gridiron Dynasty's world bootstrap simulates 20 years of player history before a user ever sees a game. High school classes, college recruiting, draft classes, NFL seasons, free agency, player lifecycle progression. All of it runs serially, year by year, phase by phase, player by player. On a 2025 machine, generating a full world was taking long enough that I'd started avoiding it during development. That's the sign that performance has crossed from "not ideal" to "actually in the way."
+Gridiron Dynasty's world bootstrap simulates 20 years of player history before a user sees a game — high school classes through college recruiting, draft classes, NFL seasons, free agency, and progression. All serial. On a 2025 machine, full generation was slow enough that I'd started avoiding it during development. That's when a performance problem stops being a nuisance and starts shaping what you do.
 
-The fix was a fan-out/fan-in thread pool: split the input array across N workers, run the callable in parallel, collect results in input order. The API ended up simple enough to use in one line:
-
-```gdscript
-var results := ThreadPool.map(players, func(p): return rate_player(p), threads)
-```
-
-The implementation is straightforward: chunk the input, enqueue slices, wait on a semaphore per chunk, write results back at the correct offset so output order matches input order regardless of which worker finished first:
+The fix: a fan-out/fan-in thread pool. `ThreadPool.map` takes an array, a callable, and a thread count. It chunks the input, spawns one thread per chunk, joins them all, and stitches results back in input order:
 
 ```gdscript
 static func map(items: Array, callable: Callable, threads: int) -> Array:
     if items.is_empty():
         return []
-    var chunks := _chunk(items, min(threads, items.size()))
-    var out: Array = []
-    out.resize(items.size())
-    var done := Semaphore.new()
-    var pool := _get_pool(min(threads, chunks.size()))
-    var offset := 0
+    var t: int = max(1, threads)
+    var chunks: Array = _chunk(items, min(t, items.size()))
+
+    # Launch
+    var jobs: Array = []
     for chunk in chunks:
-        pool.enqueue(callable, chunk, out, offset, done)
-        offset += chunk.size()
-    for i in range(chunks.size()):
-        done.wait()
+        var job := _Job.new()
+        job.thread = Thread.new()
+        job.callable = callable
+        job.slice = chunk
+        job.thread.start(Callable(ThreadPool, "_run_slice").bind(job.callable, job.slice))
+        jobs.append(job)
+
+    # Join and stitch back together in order
+    var out: Array = []
+    for job in jobs:
+        var part: Array = job.thread.wait_to_finish()
+        if part != null:
+            out.append_array(part)
     return out
 ```
 
-The order-preservation matters: downstream code assumes players are in the same sequence they went in. Without explicit offset tracking and writing results by index rather than by arrival, you'd get a race between chunks finishing and one fast chunk silently overwriting another's results.
+Order preservation is the key detail. Results get appended by job index, not by arrival time. Downstream code assumes players come back in the same sequence they went in.
 
-Turning on threads took an afternoon. The harder work was the prerequisite: making each callable genuinely pure. No writes to shared autoloads. No global state mutations as side effects. Explicit inputs in, explicit outputs out, per item.
+The harder work was the prerequisite: making every callable pure. No global mutations as side effects. Explicit inputs in, explicit outputs out. That forced an audit of the entire generation pipeline. Rating functions wrote to shared stats dictionaries as a side effect. Aggregate values got accumulated by whatever code happened to touch them last. All of it had to become explicit return values. More code at the call site, but visible data flow instead of hidden mutations.
 
-That requirement forced an audit of every mutation path in the generation pipeline. Some of what turned up was obvious: player counts that could just become return values. Some was less obvious: rating functions that wrote to a shared stats dictionary as a side effect of doing their actual job, aggregate values accumulated by whatever code happened to touch them last rather than by anything specifically responsible for computing them. All of it had to become explicit return values of each stage. The caller collects the outputs and merges them after all workers finish. That's more code at the call site, but it's honest code: the data flow is visible rather than hidden inside side effects.
+With purity handled, `generate_class` became two `ThreadPool.map` calls. First pass generates players. Second pass computes combine numbers:
 
-Two things came out of that audit. First, the generation pipeline got cleaner. When you're forced to name every output, you start noticing which outputs you were generating just because the code happened to pass through a shared place, not because anything actually needed them. Second, most of the latency wasn't in the computation itself. It was in the contention: functions grabbing and releasing shared dictionaries, writing intermediate values that nothing was reading yet, doing work whose only purpose was to update a counter that could have been computed at the end.
+```gdscript
+func generate_class(count: int, gaussian_share: float) -> Array:
+    var threads: int = App.threads_count()
+    var seeds: Array = []
+    seeds.resize(count)
+    for i in count:
+        # deterministic seeds per index prevents RNG contention
+        seeds[i] = randi() ^ (i * 0x9E3779B1)
 
-Parallelism only runs cleanly when stages produce values rather than mutate globals, and that constraint has a way of exposing the same problems that were making the pipeline slow in the first place.
+    var result := ThreadPool.map(
+        seeds,
+        func(seed_val):
+            seed(int(seed_val))
+            return _make_single_player(gaussian_share),
+        threads
+    )
+
+    var combine_callable := func(p):
+        p["combine"] = CombineCalculator.compute_all(p, combine_tuning, combine_tests)
+        return p
+    result = ThreadPool.map(result, combine_callable, threads)
+    return result
+```
+
+`seeds[i] = randi() ^ (i * 0x9E3779B1)` — XOR with a position-scaled constant gives each worker a unique seed. The comment says "deterministic seeds per index prevents RNG contention," which is the right concern. But `seed(int(seed_val))` inside the worker sets Godot's *global* RNG state. Two threads calling `seed()` concurrently can overwrite each other. The per-index XOR prevents identical sequences, but the global mutation is still a race.
+
+I noted the risk and shipped it. The pipeline was threaded and running. Whether the contention actually produces visible problems — that'll take a benchmark to find out.
