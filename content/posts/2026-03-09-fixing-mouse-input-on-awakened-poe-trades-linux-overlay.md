@@ -6,7 +6,7 @@ tags = ["x11", "electron", "linux", "proton"]
 author = "Patrick Smith"
 +++
 
-Awakened PoE Trade is an Electron overlay for Path of Exile. On Linux, PoE runs through Proton. The overlay shows up fine, keyboard shortcuts work, but mouse clicks pass straight through. You can see the buttons. You just can't click them.
+[Awakened PoE Trade](https://snosme.github.io/awakened-poe-trade/) is an Electron overlay for Path of Exile. On Linux, PoE runs through Proton. The overlay shows up fine, keyboard shortcuts work, but mouse clicks pass straight through. You can see the buttons. You just can't click them.
 
 SDL2 (via Wine/Proton) calls `XGrabPointer` to capture the mouse for the game window. When the overlay activates, `electron-overlay-window` calls `xcb_set_input_focus()` to grab keyboard focus:
 
@@ -55,7 +55,7 @@ The overlay window is override-redirect, so the WM doesn't manage it. You might 
 
 The `pthread_mutex_t` is new. The original code accessed `x_conn` from both the Node.js main thread and the hook thread with no synchronization. Fixing the mouse bug while leaving a threading bug felt wrong.
 
-This isn't a new idea. The upstream author (SnosMe) explored `_NET_ACTIVE_WINDOW` before, just on the wrong function. Commit `943c3c2` added it to `ow_focus_target()`, which returns focus *back to the game* after the overlay closes, fixing a KDE bug where the game wouldn't regain focus. Commit `131dba9` removed it: "try to focus using X11 directly instead of EWMH."
+This isn't a new idea. The upstream author (SnosMe) explored `_NET_ACTIVE_WINDOW` before, just on the wrong function. Commit [`943c3c2`](https://github.com/SnosMe/electron-overlay-window/commit/943c3c2) added it to `ow_focus_target()`, which returns focus *back to the game* after the overlay closes, fixing a KDE bug where the game wouldn't regain focus. Commit [`131dba9`](https://github.com/SnosMe/electron-overlay-window/commit/131dba9) removed it: "try to focus using X11 directly instead of EWMH."
 
 Both commits touched `ow_focus_target()`. The mouse problem lives in `ow_activate_overlay()`. Different function, different direction. They were handing focus to a managed window. We're breaking a pointer grab by triggering `FocusOut` on one.
 
