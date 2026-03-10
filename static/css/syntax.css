@@ -92,6 +92,9 @@
 /* KeywordPseudo */ [data-theme="dark"] .chroma .kp { color:#79c0ff }
 /* KeywordReserved */ [data-theme="dark"] .chroma .kr { color:#ff7b72 }
 /* KeywordType */ [data-theme="dark"] .chroma .kt { color:#ff7b72 }
+/* NameAttribute */ [data-theme="dark"] .chroma .na { color:#79c0ff }
+/* NameBuiltin */ [data-theme="dark"] .chroma .nb { color:#d2a8ff }
+/* NameBuiltinPseudo */ [data-theme="dark"] .chroma .bp { color:#8b949e }
 /* NameClass */ [data-theme="dark"] .chroma .nc { color:#f0883e;font-weight:bold }
 /* NameConstant */ [data-theme="dark"] .chroma .no { color:#79c0ff;font-weight:bold }
 /* NameDecorator */ [data-theme="dark"] .chroma .nd { color:#d2a8ff;font-weight:bold }
@@ -106,6 +109,7 @@
 /* NameVariableGlobal */ [data-theme="dark"] .chroma .vg { color:#79c0ff }
 /* NameVariableInstance */ [data-theme="dark"] .chroma .vi { color:#79c0ff }
 /* NameVariableMagic */ [data-theme="dark"] .chroma .vm { color:#79c0ff }
+/* NameOther */ [data-theme="dark"] .chroma .nx { color:#e6edf3 }
 /* NameFunction */ [data-theme="dark"] .chroma .nf { color:#d2a8ff;font-weight:bold }
 /* NameFunctionMagic */ [data-theme="dark"] .chroma .fm { color:#d2a8ff;font-weight:bold }
 /* Literal */ [data-theme="dark"] .chroma .l { color:#a5d6ff }
@@ -133,6 +137,7 @@
 /* LiteralNumberOct */ [data-theme="dark"] .chroma .mo { color:#a5d6ff }
 /* Operator */ [data-theme="dark"] .chroma .o { color:#ff7b72;font-weight:bold }
 /* OperatorWord */ [data-theme="dark"] .chroma .ow { color:#ff7b72;font-weight:bold }
+/* Punctuation */ [data-theme="dark"] .chroma .p { color:#e6edf3 }
 /* Comment */ [data-theme="dark"] .chroma .c { color:#8b949e;font-style:italic }
 /* CommentHashbang */ [data-theme="dark"] .chroma .ch { color:#8b949e;font-style:italic }
 /* CommentMultiline */ [data-theme="dark"] .chroma .cm { color:#8b949e;font-style:italic }
