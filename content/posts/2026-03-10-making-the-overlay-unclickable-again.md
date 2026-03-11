@@ -178,4 +178,40 @@ What appeared in sequence:
 
 Around 220 lines of new code across 7 files in two repos. The X11 call itself is four lines. The hard part was getting accurate measurements out of a Vue/Electron renderer with CSS animations, async DOM updates, and HiDPI scaling.
 
-Not covered yet: Wayland (different problem entirely) and widget resizing without visibility changes.
+## The Price-Check Bug on Multi-Monitor
+
+Every other widget in the overlay is keyboard-activated. Shift+space opens the menu. Settings has its own shortcut. The main process calls `assertOverlayActive()` directly and everything works.
+
+Price-check is different. It uses `WidgetAreaTracker`, which compares absolute screen coordinates from two sources: `uiohook-napi` (the global mouse hook) and Chromium's own window properties. Those two sources need to agree on where things are.
+
+On a single monitor, they do.
+
+`window.screenX` reports where Chromium thinks its window is on screen. For normal windows this is reliable. Override-redirect windows are not normal windows. They have no window manager decorations, no taskbar entry. X11 doesn't manage their position the same way, and Chromium returns `screenX = 0` regardless of where the window actually sits in the virtual desktop.
+
+Single monitor: 0 is correct. Secondary monitor to the left: 0 is wrong by the entire width of that monitor.
+
+The overlay renders perfectly. CSS layout is relative to the viewport, so the widget appears exactly where it should. Nothing looks broken. The breakage is in the IPC message sent to the main process, where the clickable track-area rectangle ends up 1920 pixels to the left of where it should be.
+
+`uiohook-napi` reports physical virtual-desktop coordinates straight from the OS. Cursor on the primary monitor at position 2400, it says `x=2400`. Meanwhile the renderer says "I'm at `x=0`" and computes the clickable area starting at 0. The main process compares 2400 against a rectangle starting at 0.
+
+Never matches.
+
+The original calculation trusts `window.screenX`:
+
+```javascript
+const width = 28.75 * AppConfig().fontSize
+const screenX = ((e.position.x - window.screenX) > window.innerWidth / 2)
+  ? (window.screenX + window.innerWidth) - wm.poePanelWidth.value - width
+  : window.screenX + wm.poePanelWidth.value
+```
+
+`xcb_translate_coordinates` returns the window's position in the X11 virtual desktop in physical pixels, the same coordinate space uiohook uses. It was already being called for the game window bounds. Just had to pipe it through.
+
+```javascript
+const originX = gb ? gb.x : Math.round(window.screenX * dpr)
+const areaX = cursorInRightHalf
+  ? (originX + totalWidth) - panelWidth - width
+  : originX + panelWidth
+```
+
+Same math. Only the origin changed. `gb.x` (from xcb) vs `window.screenX` (from Chromium). The fallback still uses `window.screenX` scaled by DPR for cases where game bounds aren't available, but on any setup where `xcb_translate_coordinates` has data, the coordinates are correct.
