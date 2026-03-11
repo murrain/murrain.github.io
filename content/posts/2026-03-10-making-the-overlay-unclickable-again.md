@@ -184,7 +184,7 @@ Every other widget in the overlay is keyboard-activated. Shift+space opens the m
 
 Price-check is different. It uses `WidgetAreaTracker`, which compares absolute screen coordinates from two sources: `uiohook-napi` (the global mouse hook) and Chromium's own window properties. Those two sources need to agree on where things are.
 
-On a single monitor, they do.
+On a single monitor, they do. The second monitor doesn't know it's the second monitor.
 
 `window.screenX` reports where Chromium thinks its window is on screen. For normal windows this is reliable. Override-redirect windows are not normal windows. They have no window manager decorations, no taskbar entry. X11 doesn't manage their position the same way, and Chromium returns `screenX = 0` regardless of where the window actually sits in the virtual desktop.
 
