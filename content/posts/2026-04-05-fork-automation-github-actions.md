@@ -149,4 +149,4 @@ The workflow has two build jobs: `build-from-sync` (triggered by cron/dispatch a
 
 ---
 
-*Source: `murrain/awakened-poe-trade`, `.github/workflows/linux-appimage.yml`*
+*Source: [`.github/workflows/linux-appimage.yml`](https://github.com/murrain/awakened-poe-trade/blob/linux-v2/.github/workflows/linux-appimage.yml)*
